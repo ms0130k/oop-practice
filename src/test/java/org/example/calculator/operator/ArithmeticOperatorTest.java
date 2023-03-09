@@ -1,5 +1,6 @@
-package org.example;
+package org.example.calculator.operator;
 
+import org.example.calculator.operator.ArithmeticOperator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.calculator.operator;
 
 import java.util.Arrays;
 
@@ -21,9 +21,6 @@ public enum ArithmeticOperator {
     }, DIVISION("/") {
         @Override
         public double calculate(final double operand1, final double operand2) {
-            if (operand2 == 0) {
-                throw new IllegalArgumentException(Calculator.CANNOT_DIVIDE_0);
-            }
             return operand1 / operand2;
         }
     };
@@ -40,11 +37,4 @@ public enum ArithmeticOperator {
 
     public abstract double calculate(double operand1, double operand2);
 
-    public static double calculate(double operand1, double operand2, String operator) {
-        return Arrays.stream(ArithmeticOperator.values())
-                .filter(v -> v.getOperator().equals(operator))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(Calculator.IS_NOT_ARITHMETIC_OPERATOR))
-                .calculate(operand1, operand2);
-    }
 }
