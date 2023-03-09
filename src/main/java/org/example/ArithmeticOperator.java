@@ -22,24 +22,29 @@ public enum ArithmeticOperator {
         @Override
         public double calculate(final double operand1, final double operand2) {
             if (operand2 == 0) {
-                throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
+                throw new IllegalArgumentException(Calculator.CANNOT_DIVIDE_0);
             }
             return operand1 / operand2;
         }
     };
+
     private final String operator;
 
-    ArithmeticOperator(String operator) {
+    ArithmeticOperator(final String operator) {
         this.operator = operator;
     }
 
-    public abstract double calculate(final double operand1, final double operand2);
+    public String getOperator() {
+        return operator;
+    }
 
-    public static double calculate(final double operand1, final double operand2, final String operator) {
-        ArithmeticOperator selectedArithmeticOperator = Arrays.stream(ArithmeticOperator.values())
-                .filter(v -> v.operator.equals(operator))
+    public abstract double calculate(double operand1, double operand2);
+
+    public static double calculate(double operand1, double operand2, String operator) {
+        return Arrays.stream(ArithmeticOperator.values())
+                .filter(v -> v.getOperator().equals(operator))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("올바른 사칙연산이 아닙니다."));
-        return selectedArithmeticOperator.calculate(operand1, operand2);
+                .orElseThrow(() -> new IllegalArgumentException(Calculator.IS_NOT_ARITHMETIC_OPERATOR))
+                .calculate(operand1, operand2);
     }
 }
